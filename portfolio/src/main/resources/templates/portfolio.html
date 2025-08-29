@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <meta name="description" content="Personal portfolio website" />
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --bg-elev: #111319;
+      --text: #e8ecf1;
+      --muted: #a7b0bd;
+      --brand: #6ee7b7; /* mint */
+      --brand-2: #60a5fa; /* blue */
+      --card: #0f1117;
+      --border: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9fc; --bg-elev:#ffffff; --text:#0b1220; --muted:#51627a;
+        --card:#ffffff; --border:rgba(0,0,0,.08); --shadow:0 8px 24px rgba(0,0,0,.08);
+      }
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(96,165,250,.12), transparent 60%),
+                  radial-gradient(900px 700px at 10% 10%, rgba(110,231,183,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1100px, 92%); margin:0 auto}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.4px}
+    .dot{width:10px; height:10px; border-radius:50%; background:linear-gradient(45deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent)}
+    .nav a{opacity:.9}
+    .nav a:hover{opacity:1}
+    .nav-menu{display:flex; gap:1rem; align-items:center}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1rem; border-radius:999px; border:1px solid var(--border); background:linear-gradient(180deg, color-mix(in oklab, var(--bg-elev) 85%, transparent), var(--bg-elev)); box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 24%, var(--bg-elev)), color-mix(in oklab, var(--brand-2) 20%, var(--bg-elev))); border-color:transparent}
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center; padding:5rem 0}
+    .chip{display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .7rem; border-radius:999px; border:1px solid var(--border); font-size:.9rem; color:var(--muted)}
+    .chip .pulse{width:8px; height:8px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 0 rgba(110,231,183,.7); animation:pulse 2s infinite}
+    @keyframes pulse{to{box-shadow:0 0 0 12px rgba(110,231,183,0)}}
+    h1{font-size:clamp(2rem, 4vw + .5rem, 3.5rem); line-height:1.1; margin:.6rem 0 1rem}
+    .lead{font-size:1.1rem; color:var(--muted); max-width:60ch}
+    .hero-cta{display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.5rem}
+    .hero-card{border:1px solid var(--border); background:var(--card); border-radius:24px; padding:1.25rem; box-shadow:var(--shadow)}
+    .hero-grid{display:grid; grid-template-columns:1fr; gap:1rem}
+
+    /* Sections */
+    section{padding:3.5rem 0}
+    .section-title{font-size:1.6rem; margin:0 0 1.2rem}
+    .muted{color:var(--muted)}
+
+    /* About */
+    .about{display:grid; grid-template-columns:1fr 1fr; gap:2rem}
+    .about .card{border:1px solid var(--border); background:var(--card); padding:1.25rem; border-radius:20px}
+
+    /* Skills */
+    .skills{display:flex; flex-wrap:wrap; gap:.6rem}
+    .tag{padding:.45rem .8rem; border:1px solid var(--border); border-radius:999px; background:color-mix(in oklab, var(--bg-elev) 85%, transparent)}
+
+    /* Projects */
+    .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem}
+    .card{border:1px solid var(--border); background:var(--card); border-radius:20px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column}
+    .card .thumb{aspect-ratio:16/10; background:linear-gradient(135deg, color-mix(in oklab, var(--brand) 18%, var(--bg-elev)), color-mix(in oklab, var(--brand-2) 18%, var(--bg-elev))); display:flex; align-items:center; justify-content:center; color:#00000075; font-weight:700}
+    .card .body{padding:1rem}
+    .card h3{margin:.2rem 0 .4rem; font-size:1.1rem}
+    .card p{margin:0; color:var(--muted)}
+    .card .links{display:flex; gap:.6rem; margin:.9rem 0 1rem}
+    .pill{padding:.45rem .75rem; border-radius:999px; border:1px solid var(--border)}
+    .card .meta{margin-top:auto; padding:1rem; border-top:1px solid var(--border); display:flex; gap:.6rem; flex-wrap:wrap}
+
+    /* Experience */
+    .timeline{border-left:2px dashed color-mix(in oklab, var(--text) 25%, transparent); margin-left:.6rem; padding-left:1rem}
+    .tl-item{position:relative; margin:1.2rem 0}
+    .tl-item::before{content:""; position:absolute; left:-1.2rem; top:.25rem; width:.7rem; height:.7rem; border-radius:50%; background:linear-gradient(45deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent)}
+
+    /* Contact */
+    form{display:grid; grid-template-columns:1fr 1fr; gap:.8rem}
+    form .full{grid-column:1/-1}
+    label{font-size:.9rem; color:var(--muted)}
+    input, textarea{width:100%; padding:.9rem 1rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-elev); color:var(--text)}
+    textarea{min-height:140px; resize:vertical}
+
+    /* Footer */
+    footer{padding:2.2rem 0; border-top:1px solid var(--border); color:var(--muted); text-align:center}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; padding:3.8rem 0}
+      .about{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns:1fr}
+      .nav-menu{display:none}
+    }
+    
+    #project,#contact {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Hariram V</span>
+      </a>
+      <nav class="nav-menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/HariThrive" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://leetcode.com/u/Hariram_new/" target="_blank" rel="noopener">LeetCode</a>
+      </nav>
+      <a class="btn" href="#contact">Say hi 👋</a>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-label="Intro">
+      <div>
+        <span class="chip"><span class="pulse" aria-hidden="true"></span> Open for Collaboration</span>
+        <h1>Hi, I’m <span style="background:linear-gradient(45deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Hariram V</span> — a Full Stack Java Developer with 2 years of experience.</h1>
+        <p class="lead">I specialise in building scalable web applications using Java (Core & Java 8), Spring Boot, Spring Security, MySQL, and modern frontend technologies like HTML, CSS, and JavaScript. I also apply JUnit for testing and best practices for performance and security.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn" href="resume.pdf" download>Download Resume</a>
+        </div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <strong>What I do</strong>
+          <p class="muted">Full Stack Development with Java, Spring Boot, REST APIs, database design, and frontend integration.
+</p>
+        </div>
+        <div class="hero-card">
+          <strong>Currently</strong>
+          <p class="muted">Building enterprise applications and enhancing my skills in scalable system design.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-label="About me">
+      <h2 class="section-title">About</h2>
+      <div class="about">
+        <div class="card">
+          <p>I’m a Full Stack Java Developer with 2 years of professional experience. I enjoy crafting efficient backend logic with Java & Spring, and creating clean, responsive frontends with HTML, CSS, and JS. I focus on writing maintainable code, ensuring security with Spring Security, and testing with JUnit.</p>
+        </div>
+  <div class="card">
+          <h3>Skills</h3>
+          <div class="skills" aria-label="Skills list">
+            <span class="tag">Java Core</span>
+            <span class="tag">Java 8</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">Spring Security</span>
+            <span class="tag">JUnit</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" aria-label="Projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="thumb" aria-label="Project screenshot placeholder">Screenshot</div>
+          <div class="body">
+            <h3>Probity</h3>
+            <p class="muted">Financial Accounting software</p>
+            <div class="links">
+              <a class="pill" href="#">Live</a>
+              <a class="pill" href="#">Source</a>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="tag">Java</span>
+           <span class="tag">SpringBoot</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Responsive</span>
+          </div>
+        </article>
+
+        <article class="card" id="project">
+          <div class="thumb">Screenshot</div>
+          <div class="body">
+            <h3>Project Two</h3>
+            <p class="muted">Portfolio template with semantic markup and performance‑first CSS.</p>
+            <div class="links">
+              <a class="pill" href="#">Live</a>
+              <a class="pill" href="#">Source</a>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="tag">Grid</span>
+            <span class="tag">A11y</span>
+            <span class="tag">No JS</span>
+          </div>
+        </article>
+
+        <article class="card" id="project">
+          <div class="thumb">Screenshot</div>
+          <div class="body">
+            <h3>Project Three</h3>
+            <p class="muted">A minimal blog layout using pure HTML & CSS with readable typography.</p>
+            <div class="links">
+              <a class="pill" href="#">Live</a>
+              <a class="pill" href="#">Source</a>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="tag">Typography</span>
+            <span class="tag">CMS‑ready</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" aria-label="Experience">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <strong>Associate Software Engineer •Kran Cunsulting Pvt.Ltd</strong>
+          <div class="muted">2025 — Present</div>
+          <p class="muted">Built component library and shipped high‑performing marketing sites.</p>
+        </div>
+        <div class="tl-item">
+          <strong>Software Engineer Trainee •Kran Cunsulting Pvt.Ltd</strong>
+          <div class="muted">2024 — 2025</div>
+          <p class="muted">Led migration to CSS Grid & modern layout; improved Lighthouse scores.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-label="Contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="muted">Like what you see? Let’s talk about your project or idea.</p>
+      <form class="card" action="mailto:you@example.com" method="post" enctype="text/plain">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me a little about your project…" required></textarea>
+        </div>
+        <div class="full" style="display:flex; gap:.6rem; align-items:center; flex-wrap:wrap">
+          <button class="btn primary" type="submit">Send Message</button>
+          <a class="btn" href="mailto:you@example.com">Email directly</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+    <div>© <span id="y"></span> Hariram V • 
+      <a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    // tiny enhancement: current year only (no functional JS required)
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
