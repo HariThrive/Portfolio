@@ -147,7 +147,7 @@
         <p class="lead">I specialise in building scalable web applications using Java (Core & Java 8), Spring Boot, Spring Security, MySQL, and modern frontend technologies like HTML, CSS, and JavaScript. I also apply JUnit for testing and best practices for performance and security.</p>
         <div class="hero-cta">
           <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn" href="resume.pdf" download>Download Resume</a>
+          <a class="btn" href="resume.pdf"id="generatePDF" download>Download Resume</a>
         </div>
       </div>
       <div class="hero-grid">
@@ -192,7 +192,7 @@
       <h2 class="section-title">Projects</h2>
       <div class="grid">
         <article class="card">
-          <div class="thumb" aria-label="Project screenshot placeholder">Screenshot</div>
+<!--          <div class="thumb" aria-label="Project screenshot placeholder">Screenshot</div>-->
           <div class="body">
             <h3>Probity</h3>
             <p class="muted">Financial Accounting software</p>
@@ -295,8 +295,9 @@
   </footer>
 
   <script>
-    // tiny enhancement: current year only (no functional JS required)
+  
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
+   <script src="/portfolio.js"></script>
 </body>
 </html>
